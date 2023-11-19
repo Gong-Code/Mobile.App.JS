@@ -8,6 +8,7 @@ const appSettings = {
 const app = initializeApp(appSettings);
 const database = getDatabase(app);
 const shoppingListInDB = ref(database, "shoppingList");
+const shoppingList = document.getElementById('shopping-list');
 
 
 const inputField = document.getElementById('input-field');
@@ -15,10 +16,15 @@ const addButton = document.getElementById('add-button');
 
 
 addButton.addEventListener("click", () => {
-    let inputValue = inputField.value; 
+    let inputValue = inputField.value;
     
+    shoppingList.innerHTML += `<li>${inputValue}</li>`;
+
     push(shoppingListInDB, inputValue);
 
     console.log(inputValue)
+
+    inputField.value = "";
+
 });
 
