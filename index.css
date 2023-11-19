@@ -44,6 +44,10 @@ button {
     outline: none;
 }
 
+button:hover{
+    background-color: #432000;
+}
+
 ul{
     display: flex;
     flex-wrap: wrap;
@@ -62,5 +66,11 @@ ul li {
     text-align: center;
     font-size: 20px;
     color: #432000;
+    cursor: pointer;
     
+}
+
+ul li:hover{
+    background-color: #AC485A;
+    color: #FDFDFD;
 }

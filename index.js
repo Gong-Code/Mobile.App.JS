@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://realtime-database-d7829-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -24,12 +24,11 @@ addButton.addEventListener("click", () => {
 
     clearInputField();
 
-    renderItem();
 });
 
 // Functions
 
-const renderItem = onValue(shoppingListInDB, (snapshot) => {
+onValue(shoppingListInDB, (snapshot) => {
     let itemsArray = Object.entries(snapshot.val());
     
     clearShoppingList();
@@ -49,6 +48,12 @@ function appendItemToShoppingList(item) {
 
     let newEl = document.createElement("li");
     newEl.textContent = itemValue;
+
+    newEl.addEventListener("click", () => {
+        let exactLocationOfItemInDB = ref(database,`shoppingList/${itemId}`)
+        
+        remove(exactLocationOfItemInDB)
+    });
 
     shoppingList.append(newEl);
 }
