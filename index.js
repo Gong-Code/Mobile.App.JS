@@ -29,28 +29,33 @@ addButton.addEventListener("click", () => {
 // Functions
 
 onValue(shoppingListInDB, (snapshot) => {
-    let itemsArray = Object.entries(snapshot.val());
+    if(snapshot.exists()) {
+        let itemsArray = Object.entries(snapshot.val());
+
+        clearShoppingList();
     
-    clearShoppingList();
-
-    clearInputField();
-
-    for(let i = 0; i < itemsArray.length; i++) {
-        let currentItem = itemsArray[i];       
-        
-        appendItemToShoppingList(currentItem)
+        for(let i = 0; i < itemsArray.length; i++) {
+            let currentItem = itemsArray[i];
+            let currentItemID = currentItem[0]
+            let currentItemValue = currentItem[1]       
+            
+            appendItemToShoppingList(currentItem)
+        }
+    }
+    else{
+        shoppingList.innerHTML = "No items in the shopping list";
     }
 })
 
 function appendItemToShoppingList(item) {
-    let itemId = item[0];
+    let itemID = item[0];
     let itemValue = item[1];
 
     let newEl = document.createElement("li");
     newEl.textContent = itemValue;
 
     newEl.addEventListener("click", () => {
-        let exactLocationOfItemInDB = ref(database,`shoppingList/${itemId}`)
+        let exactLocationOfItemInDB = ref(database,`shoppingList/${itemID}`)
         
         remove(exactLocationOfItemInDB)
     });
