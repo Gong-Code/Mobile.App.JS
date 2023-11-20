@@ -41,13 +41,13 @@ button {
     border-radius: 8px;
     font-size: 20px;
     text-align: center;
-    font-family: 'Rubik', sans-serif;
-    
+    font-family: 'Rubik', sans-serif;   
     outline: none;
 }
 
 button:hover{
     background-color: #588157;
+    color: #ffffff;
     cursor: pointer;
 }
 
